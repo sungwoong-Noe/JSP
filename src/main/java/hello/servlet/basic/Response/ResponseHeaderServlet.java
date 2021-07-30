@@ -25,9 +25,10 @@ public class ResponseHeaderServlet extends HttpServlet {
         response.setHeader("my-header", "hello");   //내가 원하는 임의의 헤더도 생성 가능
 
         //[Header 편의 메서드]
-        content(response);
+        //content(response);
 
 
+        cookie(response);
 
         PrintWriter writer = response.getWriter();
         writer.println("ok");
@@ -42,3 +43,12 @@ public class ResponseHeaderServlet extends HttpServlet {
         //response.setContentLength(2); //(생략시 자동 생성)
     }
 
+    //쿠키 편의 메서드
+    private void cookie(HttpServletResponse response) {
+        //Set-Cookie: myCookie=good; Max-Age=600;      //이 쿠키는 600초 동안 유효하다는 코드
+        //response.setHeader("Set-Cookie", "myCookie=good; Max-Age=600");
+        Cookie cookie = new Cookie("myCookie", "good");     //위 코드가 귀찮기 때문에 쿠키 객체 생성
+        cookie.setMaxAge(600); //600초
+        response.addCookie(cookie);
+    }
+}
